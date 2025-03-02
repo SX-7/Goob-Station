@@ -1,10 +1,11 @@
-﻿namespace Content.IntegrationTests;
+namespace Content.IntegrationTests;
 
 [SetUpFixture]
 public sealed class PoolManagerTestEventHandler
 {
     // This value is completely arbitrary.
-    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(20);
+    // Goobstation - due to content additions and supercode we reached the 20 minute mark, causing heisenfails. Increasing 20 -> 30
+    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(30);
     private static TimeSpan HardStopTimeLimit => MaximumTotalTestingTimeLimit.Add(TimeSpan.FromMinutes(1));
 
     [OneTimeSetUp]

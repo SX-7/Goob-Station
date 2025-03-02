@@ -21,9 +21,9 @@ public sealed class ChangelingArmorTest
     {
         await using var pair = await PoolManager.GetServerClient(new PoolSettings
         {
-            Dirty = true,
-            InLobby = false,
-            DummyTicker = false,
+            // Dirty = true,
+            // InLobby = false,
+            // DummyTicker = false,
         });
 
         var server = pair.Server;
@@ -129,6 +129,8 @@ public sealed class ChangelingArmorTest
             Assert.That(head, Is.Not.Null);
             Assert.That(entMan.GetComponent<MetaDataComponent>(head.Value).EntityPrototype!.ID, Is.EqualTo(mercHelmet));
         });
+
+        entMan.DeleteEntity(urist);
 
         await pair.CleanReturnAsync();
     }
