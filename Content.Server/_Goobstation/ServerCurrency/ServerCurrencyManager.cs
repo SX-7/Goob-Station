@@ -155,7 +155,7 @@ namespace Content.Server._Goobstation.ServerCurrency
 
             var balanceData = _balances[userId];
 
-            if(_player.TryGetSessionById(userId, out var userSession))
+            if (_player.TryGetSessionById(userId, out var userSession))
                 BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, amount, balanceData.Balance));
 
             balanceData.Balance = amount;
@@ -177,6 +177,38 @@ namespace Content.Server._Goobstation.ServerCurrency
             }
 
             return data.Balance;
+        }
+
+        /// <summary>
+        /// Transfers balance between players
+        /// </summary>
+        /// <param name="sourceUserId">The source/giver NetUserId</param>
+        /// <param name="targetUserId">The target/receiver NetUserId</param>
+        /// <param name="amount">Amount of currency that will be transferred</param>
+        /// <remarks>
+        /// Just like <see cref="RemoveCurrency(NetUserId, int)"/>, this function will
+        /// not block balance from being transferred when currency amount on source would
+        /// go into negatives, nor will it track whether <paramref name="amount"/> is unsigned.
+        /// It will also block server shutdown, due to performing DB ops.
+        /// </remarks>
+        public void TransferBalance(NetUserId sourceUserId, NetUserId targetUserId, int amount)
+        {
+            TrackPending(TransferBalanceAsync(sourceUserId, targetUserId, amount));
+
+            var sourceBalanceData = _balances[sourceUserId];
+            var targetBalanceData = _balances[targetUserId];
+
+            if (_player.TryGetSessionById(sourceUserId, out var sourceUserSession))
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(sourceUserSession, sourceUserId, sourceBalanceData.Balance - amount, sourceBalanceData.Balance));
+
+            if (_player.TryGetSessionById(targetUserId, out var targetUserSession))
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(targetUserSession, targetUserId, targetBalanceData.Balance + amount, targetBalanceData.Balance));
+
+            sourceBalanceData.Balance -= amount;
+            sourceBalanceData.IsDirty = true;
+
+            targetBalanceData.Balance += amount;
+            targetBalanceData.IsDirty = true;
         }
 
         /// <summary>
@@ -205,6 +237,14 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <returns>An integer containing the amount of currency attributed to the player.</returns>
         public async Task<int> GetBalanceAsync(NetUserId userId) => await _db.GetServerCurrency(userId);
+
+        /// <summary>
+        /// Transfers balance between players
+        /// </summary>
+        /// <param name="sourceUserId">The source/giver NetUserId</param>
+        /// <param name="targetUserId">The target/receiver NetUserId</param>
+        /// <param name="amount">Amount of currency that will be transferred</param>
+        public async Task TransferBalanceAsync(NetUserId sourceUserId, NetUserId targetUserId, int amount) => await _db.TransferServerCurrency(sourceUserId, targetUserId, amount);
 
         /// <summary>
         /// Track a database save task to make sure we block server shutdown on it.

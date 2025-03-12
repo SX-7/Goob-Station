@@ -191,6 +191,7 @@ namespace Content.Server.Database
         Task<PlayerRecord?> GetPlayerRecordByUserId(NetUserId userId, CancellationToken cancel = default);
         Task<int> GetServerCurrency(NetUserId userId); // Goobstation
         Task SetServerCurrency(NetUserId userId, int currency); // Goobstation
+        Task TransferServerCurrency(NetUserId sourceUserId, NetUserId targetUserId, int currency); // Goobstation
         #endregion
 
         #region Connection Logs
@@ -672,6 +673,12 @@ namespace Content.Server.Database
         {
             DbReadOpsMetric.Inc();
             return RunDbCommand(() => _db.SetServerCurrency(userId, currency));
+        }
+
+        public Task TransferServerCurrency(NetUserId sourceUserId, NetUserId targetUserId, int currency) // Goobstation
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.TransferServerCurrency(sourceUserId, targetUserId, currency));
         }
 
 
