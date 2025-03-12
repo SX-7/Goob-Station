@@ -181,7 +181,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         }
 
         /// <summary>
-        /// Modifies a player's by an amount.
+        /// Modifies a player's balance by an amount.
         /// </summary>
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amountDelta">The amount of currency the player will gain/lose</param>
