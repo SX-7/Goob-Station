@@ -198,11 +198,7 @@ namespace Content.Server._Goobstation.ServerCurrency
             var balanceData = _balances[userId];
 
             if (_player.TryGetSessionById(userId, out var userSession))
-                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(
-                    userSession,
-                    userId,
-                    balanceData.Balance + amountDelta,
-                    balanceData.Balance));
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, balanceData.Balance + amountDelta, balanceData.Balance));
 
             balanceData.Balance += amountDelta;
             balanceData.IsDirty = true;
@@ -212,7 +208,9 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <summary>
         /// Balance info for a particular player.
         /// </summary>
-        /// <remarks>Edits to <see cref="Balance"/> are stored in <see cref="BalanceDelta"/> and are accessible until <see cref="ApplyDelta"/> is called</remarks>
+        /// <remarks>
+        /// Edits to <see cref="Balance"/> are stored in <see cref="BalanceDelta"/> and are accessible until <see cref="ApplyDelta"/> is called
+        /// </remarks>
         private sealed class BalanceData
         {
             private int _balance = new();
