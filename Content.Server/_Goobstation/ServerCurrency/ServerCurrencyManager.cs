@@ -97,7 +97,6 @@ namespace Content.Server._Goobstation.ServerCurrency
             if (!_balances[player].IsDirty)
                 return;
             _balances[player].IsDirty = false;
-            TrackPending(SetBalanceAsync(player, _balances[player].Balance));
             TrackPending(ModifyBalanceAsync(player, _balances[player].BalanceDelta));
             _balances[player].Balance += _balances[player].BalanceDelta;
             _balances[player].BalanceDelta = 0;
@@ -164,9 +163,9 @@ namespace Content.Server._Goobstation.ServerCurrency
             var balanceData = _balances[userId];
 
             if (_player.TryGetSessionById(userId, out var userSession))
-                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, amount, balanceData.Balance));
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, amount, balanceData.Balance + balanceData.BalanceDelta));
 
-            balanceData.Balance = amount;
+            balanceData.BalanceDelta = amount - balanceData.Balance;
             balanceData.IsDirty = true;
             return amount;
         }
