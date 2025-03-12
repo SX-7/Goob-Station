@@ -99,6 +99,7 @@ namespace Content.Server._Goobstation.ServerCurrency
             _balances[player].IsDirty = false;
             TrackPending(SetBalanceAsync(player, _balances[player].Balance));
             TrackPending(ModifyBalanceAsync(player, _balances[player].BalanceDelta));
+            _balances[player].Balance += _balances[player].BalanceDelta;
             _balances[player].BalanceDelta = 0;
         }
 
