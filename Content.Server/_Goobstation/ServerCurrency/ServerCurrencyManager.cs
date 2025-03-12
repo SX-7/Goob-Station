@@ -148,7 +148,11 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amount">The amount of currency that will be set.</param>
         /// <returns>An integer containing the new amount of currency attributed to the player.</returns>
-        /// <remarks>Preferably use <see cref="ModifyBalance(NetUserId, int)"/> instead when running multiple servers.</remarks>
+        /// <remarks>
+        /// Preferably use <see cref="ModifyBalance(NetUserId, int)"/> instead when running multiple servers.
+        /// <para></para>
+        /// <see cref="BalanceData.BalanceDelta"/> will not be updated, and value may appear incorrect until DB sync.
+        /// </remarks>
         public int SetBalance(NetUserId userId, int amount)
         {
             if (!_balances.TryGetValue(userId, out var data) || !data.Initialized)
