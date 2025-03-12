@@ -193,6 +193,18 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// </remarks>
         public void TransferBalance(NetUserId sourceUserId, NetUserId targetUserId, int amount)
         {
+            if (!_balances.TryGetValue(sourceUserId, out var sourceData) || !sourceData.Initialized)
+            {
+                _sawmill.Warning($"Attempted to transfer balance, which was not loaded for player {sourceUserId.ToString()}");
+                return;
+            }
+
+            if (!_balances.TryGetValue(targetUserId, out var targetData) || !targetData.Initialized)
+            {
+                _sawmill.Warning($"Attempted to transfer balance, which was not loaded for player {targetUserId.ToString()}");
+                return;
+            }
+
             TrackPending(TransferBalanceAsync(sourceUserId, targetUserId, amount));
 
             var sourceBalanceData = _balances[sourceUserId];
