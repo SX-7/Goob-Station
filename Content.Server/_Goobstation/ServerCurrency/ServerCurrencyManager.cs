@@ -240,7 +240,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         public async Task<int> GetBalanceAsync(NetUserId userId) => await _db.GetServerCurrency(userId);
 
         /// <summary>
-        /// Changes player's balance by an amount
+        /// Changes player's balance by an amount.
         /// </summary>
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amountDelta">Change in currency amount</param>
