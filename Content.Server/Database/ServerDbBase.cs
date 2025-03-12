@@ -694,20 +694,15 @@ namespace Content.Server.Database
             await db.DbContext.SaveChangesAsync();
         }
 
-        public async Task TransferServerCurrency(NetUserId sourceUserId, NetUserId targetUserId, int currency) // Goobstation
+        public async Task ModifyServerCurrency(NetUserId userId, int currencyDelta) // Goobstation
         {
             await using var db = await GetDb();
 
-            var dbSourcePlayer = await db.DbContext.Player.Where(dbPlayer => dbPlayer.UserId == sourceUserId).SingleOrDefaultAsync();
-            if (dbSourcePlayer == null)
+            var dbPlayer = await db.DbContext.Player.Where(dbPlayer => dbPlayer.UserId == userId).SingleOrDefaultAsync();
+            if (dbPlayer == null)
                 return;
 
-            var dbTargetPlayer = await db.DbContext.Player.Where(dbPlayer => dbPlayer.UserId == targetUserId).SingleOrDefaultAsync();
-            if (dbTargetPlayer == null)
-                return;
-
-            dbSourcePlayer.ServerCurrency -= currency;
-            dbTargetPlayer.ServerCurrency += currency;
+            dbPlayer.ServerCurrency += currencyDelta;
             await db.DbContext.SaveChangesAsync();
         }
 

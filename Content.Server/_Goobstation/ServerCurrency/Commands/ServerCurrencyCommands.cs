@@ -87,7 +87,8 @@ namespace Content.Server._Goobstation.ServerCurrency.Commands
                 return;
             }
 
-            _currencyMan.TransferBalance(shell.Player.UserId, targetPlayer, amount);
+            _currencyMan.AddCurrency(shell.Player.UserId, amount);
+            _currencyMan.RemoveCurrency(targetPlayer, amount);
 
             var giver = Loc.GetString("server-currency-gift-command-giver", ("player", args[0]), ("amount", _currencyMan.Stringify(amount)));
             var reciever = Loc.GetString("server-currency-gift-command-reciever", ("player", shell.Player.Name), ("amount", _currencyMan.Stringify(amount)));

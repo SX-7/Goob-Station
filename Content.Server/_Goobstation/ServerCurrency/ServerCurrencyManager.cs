@@ -98,6 +98,8 @@ namespace Content.Server._Goobstation.ServerCurrency
                 return;
             _balances[player].IsDirty = false;
             TrackPending(SetBalanceAsync(player, _balances[player].Balance));
+            TrackPending(ModifyBalanceAsync(player, _balances[player].BalanceDelta));
+            _balances[player].BalanceDelta = 0;
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amount">The amount of currency to add.</param>
         /// <returns>An integer containing the new amount of currency attributed to the player.</returns>
-        public int AddCurrency(NetUserId userId, int amount) => SetBalance(userId, GetBalance(userId) + amount);
+        public int AddCurrency(NetUserId userId, int amount) => ModifyBalance(userId, amount);
 
         /// <summary>
         /// Removes currency from a player.
@@ -137,7 +139,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amount">The amount of currency to remove.</param>
         /// <returns>An integer containing the new amount of currency attributed to the player.</returns>
-        public int RemoveCurrency(NetUserId userId, int amount) => SetBalance(userId, GetBalance(userId) - amount);
+        public int RemoveCurrency(NetUserId userId, int amount) => ModifyBalance(userId, -amount);
 
         /// <summary>
         /// Sets a player's currency.
@@ -145,6 +147,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amount">The amount of currency that will be set.</param>
         /// <returns>An integer containing the new amount of currency attributed to the player.</returns>
+        /// <remarks>Preferably use <see cref="ModifyBalance(NetUserId, int)"/> instead when running multiple servers.</remarks>
         public int SetBalance(NetUserId userId, int amount)
         {
             if (!_balances.TryGetValue(userId, out var data) || !data.Initialized)
@@ -176,59 +179,45 @@ namespace Content.Server._Goobstation.ServerCurrency
                 return 0;
             }
 
-            return data.Balance;
+            return data.Balance + data.BalanceDelta;
         }
 
         /// <summary>
-        /// Transfers balance between players
+        /// Modifies a player's by an amount.
         /// </summary>
-        /// <param name="sourceUserId">The source/giver NetUserId</param>
-        /// <param name="targetUserId">The target/receiver NetUserId</param>
-        /// <param name="amount">Amount of currency that will be transferred</param>
-        /// <remarks>
-        /// Just like <see cref="RemoveCurrency(NetUserId, int)"/>, this function will
-        /// not block balance from being transferred when currency amount on source would
-        /// go into negatives, nor will it track whether <paramref name="amount"/> is unsigned.
-        /// It will also block server shutdown, due to performing DB ops.
-        /// </remarks>
-        public void TransferBalance(NetUserId sourceUserId, NetUserId targetUserId, int amount)
+        /// <param name="userId">The player's NetUserId</param>
+        /// <param name="amountDelta">The amount of currency the player will gain/lose</param>
+        /// <returns>The players balance.</returns>
+        public int ModifyBalance(NetUserId userId, int amountDelta)
         {
-            if (!_balances.TryGetValue(sourceUserId, out var sourceData) || !sourceData.Initialized)
+            if (!_balances.TryGetValue(userId, out var data) || !data.Initialized)
             {
-                _sawmill.Warning($"Attempted to transfer balance, which was not loaded for player {sourceUserId.ToString()}");
-                return;
+                _sawmill.Warning($"Attempted to modify balance, which was not loaded for player {userId.ToString()}");
+                return 0;
             }
 
-            if (!_balances.TryGetValue(targetUserId, out var targetData) || !targetData.Initialized)
-            {
-                _sawmill.Warning($"Attempted to transfer balance, which was not loaded for player {targetUserId.ToString()}");
-                return;
-            }
+            var balanceData = _balances[userId];
 
-            TrackPending(TransferBalanceAsync(sourceUserId, targetUserId, amount));
+            if (_player.TryGetSessionById(userId, out var userSession))
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(
+                    userSession,
+                    userId,
+                    balanceData.Balance + balanceData.BalanceDelta + amountDelta,
+                    balanceData.Balance + balanceData.BalanceDelta));
 
-            var sourceBalanceData = _balances[sourceUserId];
-            var targetBalanceData = _balances[targetUserId];
-
-            if (_player.TryGetSessionById(sourceUserId, out var sourceUserSession))
-                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(sourceUserSession, sourceUserId, sourceBalanceData.Balance - amount, sourceBalanceData.Balance));
-
-            if (_player.TryGetSessionById(targetUserId, out var targetUserSession))
-                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(targetUserSession, targetUserId, targetBalanceData.Balance + amount, targetBalanceData.Balance));
-
-            sourceBalanceData.Balance -= amount;
-            sourceBalanceData.IsDirty = true;
-
-            targetBalanceData.Balance += amount;
-            targetBalanceData.IsDirty = true;
+            balanceData.BalanceDelta += amountDelta;
+            balanceData.IsDirty = true;
+            return balanceData.Balance + balanceData.BalanceDelta;
         }
 
         /// <summary>
         /// Balance info for a particular player.
         /// </summary>
+        /// <remarks>BalanceDelta will be applied after Balance during DB sync</remarks>
         private sealed class BalanceData
         {
             public int Balance = new();
+            public int BalanceDelta = new();
             public bool IsDirty = false;
             public bool Initialized = false;
         }
@@ -251,12 +240,11 @@ namespace Content.Server._Goobstation.ServerCurrency
         public async Task<int> GetBalanceAsync(NetUserId userId) => await _db.GetServerCurrency(userId);
 
         /// <summary>
-        /// Transfers balance between players
+        /// Changes player's balance by an amount
         /// </summary>
-        /// <param name="sourceUserId">The source/giver NetUserId</param>
-        /// <param name="targetUserId">The target/receiver NetUserId</param>
-        /// <param name="amount">Amount of currency that will be transferred</param>
-        public async Task TransferBalanceAsync(NetUserId sourceUserId, NetUserId targetUserId, int amount) => await _db.TransferServerCurrency(sourceUserId, targetUserId, amount);
+        /// <param name="userId">The player's NetUserId</param>
+        /// <param name="amountDelta">Change in currency amount</param>
+        public async Task ModifyBalanceAsync(NetUserId userId, int amountDelta) => await _db.ModifyServerCurrency(userId, amountDelta);
 
         /// <summary>
         /// Track a database save task to make sure we block server shutdown on it.
