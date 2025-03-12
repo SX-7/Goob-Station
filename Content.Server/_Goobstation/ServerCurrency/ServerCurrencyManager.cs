@@ -98,8 +98,7 @@ namespace Content.Server._Goobstation.ServerCurrency
                 return;
             _balances[player].IsDirty = false;
             TrackPending(ModifyBalanceAsync(player, _balances[player].BalanceDelta));
-            _balances[player].Balance += _balances[player].BalanceDelta;
-            _balances[player].BalanceDelta = 0;
+            _balances[player].SyncDelta();
         }
 
         /// <summary>
@@ -147,11 +146,6 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <param name="userId">The player's NetUserId</param>
         /// <param name="amount">The amount of currency that will be set.</param>
         /// <returns>An integer containing the new amount of currency attributed to the player.</returns>
-        /// <remarks>
-        /// Preferably use <see cref="ModifyBalance(NetUserId, int)"/> instead when running multiple servers.
-        /// <para></para>
-        /// <see cref="BalanceData.BalanceDelta"/> will not be updated, and value may appear incorrect until DB sync.
-        /// </remarks>
         public int SetBalance(NetUserId userId, int amount)
         {
             if (!_balances.TryGetValue(userId, out var data) || !data.Initialized)
@@ -163,9 +157,9 @@ namespace Content.Server._Goobstation.ServerCurrency
             var balanceData = _balances[userId];
 
             if (_player.TryGetSessionById(userId, out var userSession))
-                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, amount, balanceData.Balance + balanceData.BalanceDelta));
+                BalanceChange?.Invoke(new PlayerBalanceChangeEvent(userSession, userId, amount, balanceData.Balance));
 
-            balanceData.BalanceDelta = amount - balanceData.Balance;
+            balanceData.Balance = amount;
             balanceData.IsDirty = true;
             return amount;
         }
@@ -183,7 +177,7 @@ namespace Content.Server._Goobstation.ServerCurrency
                 return 0;
             }
 
-            return data.Balance + data.BalanceDelta;
+            return data.Balance;
         }
 
         /// <summary>
@@ -206,24 +200,27 @@ namespace Content.Server._Goobstation.ServerCurrency
                 BalanceChange?.Invoke(new PlayerBalanceChangeEvent(
                     userSession,
                     userId,
-                    balanceData.Balance + balanceData.BalanceDelta + amountDelta,
-                    balanceData.Balance + balanceData.BalanceDelta));
+                    balanceData.Balance + amountDelta,
+                    balanceData.Balance));
 
             balanceData.BalanceDelta += amountDelta;
             balanceData.IsDirty = true;
-            return balanceData.Balance + balanceData.BalanceDelta;
+            return balanceData.Balance;
         }
 
         /// <summary>
         /// Balance info for a particular player.
         /// </summary>
-        /// <remarks>BalanceDelta will be applied after Balance during DB sync</remarks>
+        /// <remarks>Edits to <see cref="Balance"/> are stored in <see cref="BalanceDelta"/> and are accessible until <see cref="SyncDelta"/> is called</remarks>
         private sealed class BalanceData
         {
-            public int Balance = new();
+            private int _balance = new();
             public int BalanceDelta = new();
             public bool IsDirty = false;
             public bool Initialized = false;
+
+            public int Balance { get => _balance + BalanceDelta; set => BalanceDelta = value - _balance; }
+            public void SyncDelta() { _balance += BalanceDelta; BalanceDelta = 0; }
         }
 
         // Async Tasks
