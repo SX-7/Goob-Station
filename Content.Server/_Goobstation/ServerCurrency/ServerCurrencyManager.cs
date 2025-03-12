@@ -98,7 +98,7 @@ namespace Content.Server._Goobstation.ServerCurrency
                 return;
             _balances[player].IsDirty = false;
             TrackPending(ModifyBalanceAsync(player, _balances[player].BalanceDelta));
-            _balances[player].SyncDelta();
+            _balances[player].ApplyDelta();
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Content.Server._Goobstation.ServerCurrency
         /// <summary>
         /// Balance info for a particular player.
         /// </summary>
-        /// <remarks>Edits to <see cref="Balance"/> are stored in <see cref="BalanceDelta"/> and are accessible until <see cref="SyncDelta"/> is called</remarks>
+        /// <remarks>Edits to <see cref="Balance"/> are stored in <see cref="BalanceDelta"/> and are accessible until <see cref="ApplyDelta"/> is called</remarks>
         private sealed class BalanceData
         {
             private int _balance = new();
@@ -221,7 +221,7 @@ namespace Content.Server._Goobstation.ServerCurrency
 
             public int Balance { get => _balance + _balanceDelta; set => _balanceDelta = value - _balance; }
             public int BalanceDelta => _balanceDelta;
-            public void SyncDelta() { _balance += _balanceDelta; _balanceDelta = 0; }
+            public void ApplyDelta() { _balance += _balanceDelta; _balanceDelta = 0; }
         }
 
         // Async Tasks
