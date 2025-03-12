@@ -66,6 +66,7 @@ namespace Content.Server._Goobstation.ServerCurrency
             data.Balance = await GetBalanceAsync(user);
             cancel.ThrowIfCancellationRequested();
 
+            data.ApplyDelta();
             data.Initialized = true;
         }
 
