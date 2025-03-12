@@ -203,7 +203,7 @@ namespace Content.Server._Goobstation.ServerCurrency
                     balanceData.Balance + amountDelta,
                     balanceData.Balance));
 
-            balanceData.BalanceDelta += amountDelta;
+            balanceData.Balance += amountDelta;
             balanceData.IsDirty = true;
             return balanceData.Balance;
         }
@@ -215,12 +215,13 @@ namespace Content.Server._Goobstation.ServerCurrency
         private sealed class BalanceData
         {
             private int _balance = new();
-            public int BalanceDelta = new();
+            private int _balanceDelta = new();
             public bool IsDirty = false;
             public bool Initialized = false;
 
-            public int Balance { get => _balance + BalanceDelta; set => BalanceDelta = value - _balance; }
-            public void SyncDelta() { _balance += BalanceDelta; BalanceDelta = 0; }
+            public int Balance { get => _balance + _balanceDelta; set => _balanceDelta = value - _balance; }
+            public int BalanceDelta => _balanceDelta;
+            public void SyncDelta() { _balance += _balanceDelta; _balanceDelta = 0; }
         }
 
         // Async Tasks
