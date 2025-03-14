@@ -1,5 +1,6 @@
 using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 using Robust.Shared.Audio;
 
 namespace Content.Shared.Chemistry.Components;

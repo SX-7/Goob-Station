@@ -1,4 +1,4 @@
-using Content.Shared.Damage;
+﻿using Content.Shared.Damage;
 using Content.Shared.Examine;
 using Content.Shared.Inventory;
 using Content.Shared.Silicons.Borgs;

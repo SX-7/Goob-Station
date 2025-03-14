@@ -3,6 +3,7 @@ using Content.Shared.Clothing.Components;
 using Content.Shared.Foldable;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Item;
 using Content.Shared.Popups;
 using Robust.Shared.Timing;
 
