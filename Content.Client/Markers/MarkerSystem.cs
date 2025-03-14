@@ -1,4 +1,5 @@
 using Robust.Client.GameObjects;
+using Robust.Shared.GameObjects;
 
 namespace Content.Client.Markers;
 

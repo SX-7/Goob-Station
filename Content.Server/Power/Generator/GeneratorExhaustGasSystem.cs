@@ -1,4 +1,5 @@
-﻿using Content.Server.Atmos.EntitySystems;
+﻿using Content.Server.Atmos;
+using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Power.Generator;
 

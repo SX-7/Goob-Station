@@ -1,3 +1,5 @@
+using System;
+
 namespace Content.Server.Power.Components
 {
     /// <summary>

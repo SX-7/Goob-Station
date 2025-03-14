@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Singularity.Components;
 using Robust.Client.GameObjects;
 

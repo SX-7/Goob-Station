@@ -1,4 +1,6 @@
-﻿using Robust.Client.UserInterface.CustomControls;
+﻿using System;
+using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.IoC;
 
 namespace Content.Client.Administration.UI.CustomControls
 {

@@ -1,4 +1,3 @@
-using Content.Client._RMC14.LinkAccount;
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
@@ -27,6 +26,7 @@ using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Players.RateLimiting;
 using Content.Client._Goobstation.ServerCurrency; // Goob Station - Goob Coin
 using Content.Client._Goobstation.Redial; // Goobstation - Redialing
+using Content.Client._RMC14.LinkAccount; // RMC14
 
 namespace Content.Client.IoC
 {

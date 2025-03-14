@@ -133,6 +133,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler
             HashSet<ProtoId<GuideEntryPrototype>> entries = new(_entries.Keys);
             foreach (var entry in _entries.Values)
             {
+                // Goobstation start - children sorting
                 if (entry.Children.Count > 0)
                 {
                     var sortedChildren = entry.Children
@@ -144,10 +145,9 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler
 
                     entry.Children = sortedChildren;
                 }
-
+                // Goobstation end
                 entries.ExceptWith(entry.Children);
             }
-
             rootEntries = entries.ToList();
         }
 

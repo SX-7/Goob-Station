@@ -1,3 +1,5 @@
+using System.Threading;
+
 namespace Content.Server.Resist;
 
 [RegisterComponent]

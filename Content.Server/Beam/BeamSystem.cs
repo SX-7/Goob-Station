@@ -5,6 +5,7 @@ using Content.Shared.Beam.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Physics;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;

@@ -1,4 +1,4 @@
-using Content.Shared.Inventory;
+﻿using Content.Shared.Inventory;
 
 namespace Content.Server.Atmos.Components
 {
@@ -14,7 +14,6 @@ namespace Content.Server.Atmos.Components
         /// </summary>
         [DataField]
         public SlotFlags AllowedSlots = SlotFlags.MASK | SlotFlags.HEAD;
-
         public bool IsFunctional;
 
         public EntityUid? ConnectedInternalsEntity;

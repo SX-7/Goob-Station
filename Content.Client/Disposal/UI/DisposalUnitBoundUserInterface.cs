@@ -1,5 +1,8 @@
+using Content.Client.Disposal.Systems;
 using Content.Shared.Disposal;
+using Content.Shared.Disposal.Components;
 using JetBrains.Annotations;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface.Controls;
 using static Content.Shared.Disposal.Components.SharedDisposalUnitComponent;
 

@@ -1,6 +1,12 @@
-﻿using Content.Shared.Eui;
+﻿using System;
+using System.Collections.Generic;
+using Content.Shared.Eui;
+using Robust.Client.GameStates;
+using Robust.Client.State;
+using Robust.Shared.IoC;
 using Robust.Shared.Network;
 using Robust.Shared.Reflection;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Eui
 {

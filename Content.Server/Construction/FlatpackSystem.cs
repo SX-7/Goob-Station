@@ -1,4 +1,5 @@
 using Content.Server.Audio;
+using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Construction;
 using Content.Shared.Construction.Components;

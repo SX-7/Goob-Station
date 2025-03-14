@@ -36,6 +36,7 @@ public sealed class RevolutionarySystem : SharedRevolutionarySystem
             args.StatusIcons.Add(iconPrototype);
     }
 
+    // Goobstation - enemies of the revolution
     private void EnemyGetIcon(Entity<RevolutionEnemyComponent> ent, ref GetStatusIconsEvent args)
     {
         if (HasComp<RevolutionEnemyComponent>(ent)

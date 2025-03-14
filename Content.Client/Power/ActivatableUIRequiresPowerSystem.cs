@@ -3,6 +3,7 @@ using Content.Shared.Popups;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
+using Content.Shared.Wires;
 
 namespace Content.Client.Power;
 

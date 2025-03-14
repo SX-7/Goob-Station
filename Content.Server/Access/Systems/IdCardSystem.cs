@@ -31,7 +31,7 @@ public sealed class IdCardSystem : SharedIdCardSystem
     private void OnMicrowaved(EntityUid uid, IdCardComponent component, BeingMicrowavedEvent args)
     {
         if (!component.CanMicrowave || !TryComp<MicrowaveComponent>(args.Microwave, out var micro) || micro.Broken)
-            return;
+            return;   
 
         if (TryComp<AccessComponent>(uid, out var access))
         {
@@ -73,7 +73,7 @@ public sealed class IdCardSystem : SharedIdCardSystem
 
 
             // If they're unlucky, brick their ID
-            if (randomPick <= 0.4f)
+            if (randomPick <= 0.3f)
             {
                 _popupSystem.PopupEntity(Loc.GetString("id-card-component-microwave-bricked", ("id", uid)), uid);
 

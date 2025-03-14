@@ -1,5 +1,6 @@
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Weapons.Ranged.Systems;
 

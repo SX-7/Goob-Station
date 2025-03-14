@@ -241,6 +241,7 @@ public sealed partial class MechSystem : SharedMechSystem
 
         TryInsert(uid, args.Args.User, component);
         _actionBlocker.UpdateCanMove(uid);
+
         args.Handled = true;
     }
 

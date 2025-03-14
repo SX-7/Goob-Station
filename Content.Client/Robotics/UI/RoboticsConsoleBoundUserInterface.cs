@@ -1,4 +1,5 @@
 using Content.Shared.Robotics;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Robotics.UI;

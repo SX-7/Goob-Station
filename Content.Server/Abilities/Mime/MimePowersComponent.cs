@@ -74,6 +74,10 @@ namespace Content.Server.Abilities.Mime
         [DataField]
         public LocId FailWriteMessage = "paper-component-illiterate-mime";
 
+        /// <summary>
+        /// Goobstation
+        /// Chance for the mime to be punished upon breaking the vow
+        /// </summary>
         [DataField]
         public float PunishmentChance = 0.25f;
 

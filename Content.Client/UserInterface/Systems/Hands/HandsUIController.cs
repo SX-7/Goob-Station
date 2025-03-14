@@ -13,7 +13,7 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Input;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Interaction.Components;
+using Content.Shared._NF.Interaction.Components; // Frontier - Borg Hand placeholders
 
 namespace Content.Client.UserInterface.Systems.Hands;
 

@@ -1,5 +1,6 @@
 using Content.Shared.Labels;
 using Content.Shared.Labels.Components;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Labels.UI

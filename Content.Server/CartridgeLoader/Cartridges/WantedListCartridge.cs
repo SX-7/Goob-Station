@@ -1,3 +1,5 @@
+using Content.Shared.Security;
+
 namespace Content.Server.CartridgeLoader.Cartridges;
 
 [RegisterComponent]

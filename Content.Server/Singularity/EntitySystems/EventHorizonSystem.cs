@@ -3,6 +3,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Singularity.Events;
 using Content.Server.Station.Components;
 using Content.Shared.Database;
+using Content.Shared.Ghost;
 using Content.Shared.Mind.Components;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Singularity.EntitySystems;

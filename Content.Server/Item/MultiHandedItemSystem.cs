@@ -1,4 +1,5 @@
-﻿using Content.Server.Inventory;
+﻿using Content.Server.Hands.Systems;
+using Content.Server.Inventory;
 using Content.Shared.Hands;
 using Content.Shared.Item;
 

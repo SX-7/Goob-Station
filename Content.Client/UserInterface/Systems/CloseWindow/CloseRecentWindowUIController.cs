@@ -1,3 +1,5 @@
+using Content.Client.Gameplay;
+using Content.Client.Info;
 using Robust.Client.Input;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;

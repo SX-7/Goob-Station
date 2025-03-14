@@ -8,7 +8,7 @@ namespace Content.Client.Nutrition.EntitySystems;
 
 public sealed class ClientFoodSequenceSystem : SharedFoodSequenceSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // Goobstation
 
     public override void Initialize()
     {
@@ -39,7 +39,8 @@ public sealed class ClientFoodSequenceSystem : SharedFoodSequenceSystem
         var counter = 0;
         foreach (var state in start.Comp.FoodLayers)
         {
-            if (state.Sprite is null && state.Proto != null && _prototypeManager.TryIndex<EntityPrototype>(state.Proto, out var prototype)) // Goobstation - anythingburgers HOLY FUCK THIS IS SO BAD!!! BUT IT WORKS!!
+            // Goobstation start - anythingburgers HOLY FUCK THIS IS SO BAD!!! BUT IT WORKS!!
+            if (state.Sprite is null && state.Proto != null && _prototypeManager.TryIndex<EntityPrototype>(state.Proto, out var prototype))
             {
                 if (prototype.TryGetComponent<SpriteComponent>(out var spriteComp))
                 {
@@ -77,7 +78,7 @@ public sealed class ClientFoodSequenceSystem : SharedFoodSequenceSystem
                 counter++;
                 continue;
             }
-
+            // Goobstation end
 
             if (state.Sprite is null)
                 continue;

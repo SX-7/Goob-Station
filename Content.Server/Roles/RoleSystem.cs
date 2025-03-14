@@ -1,5 +1,8 @@
+using Content.Server.Chat.Managers;
+using Content.Shared.Chat;
 using Content.Shared.Mind;
 using Content.Shared.Roles;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Roles;
 

@@ -1,3 +1,5 @@
+using Robust.Shared.Prototypes;
+
 namespace Content.Server.NPC.Queries.Queries;
 
 /// <summary>

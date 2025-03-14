@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Content.Client._RMC14.LinkAccount;
 using Content.Client.UserInterface.Screens;
 using Content.Shared.CCVar;
 using Content.Shared.HUD;
@@ -9,6 +8,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared;
 using Robust.Shared.Prototypes;
+using Content.Client._RMC14.LinkAccount; // RMC14
 
 namespace Content.Client.Options.UI.Tabs;
 
@@ -17,7 +17,7 @@ public sealed partial class MiscTab : Control
 {
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly LinkAccountManager _linkAccount = default!;
+    [Dependency] private readonly LinkAccountManager _linkAccount = default!; // RMC14
 
     public MiscTab()
     {

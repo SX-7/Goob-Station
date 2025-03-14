@@ -1,5 +1,6 @@
 using Content.Shared.Overlays;
 using Content.Shared.Security.Components;
+using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Shared.Prototypes;
 

@@ -376,9 +376,9 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             antagEnt = getEntEv.Entity;
         }
 
+        // Goob edit start
         if (antagEnt is not { } player)
         {
-            // Goob edit start
             if (session == null)
                 return;
 
@@ -391,7 +391,6 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             }
 
             Log.Error($"Attempted to make {session} antagonist in gamerule {ToPrettyString(ent)} but there was no valid entity for player.");
-            // goob edit end
             return;
         }
 
@@ -403,6 +402,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
                 _inventory.TryUnequip(player, slot.Name, true, true, inventory: inventory);
             }
         }
+        // Goob edit end
 
         var getPosEv = new AntagSelectLocationEvent(session, ent);
         RaiseLocalEvent(ent, ref getPosEv, true);

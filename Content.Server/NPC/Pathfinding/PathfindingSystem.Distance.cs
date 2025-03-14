@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared.NPC;
 
 namespace Content.Server.NPC.Pathfinding;
 

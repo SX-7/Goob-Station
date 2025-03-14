@@ -1,4 +1,5 @@
-﻿using Content.Client.Administration.Managers;
+﻿using System.Numerics;
+using Content.Client.Administration.Managers;
 using Content.Client.Gameplay;
 using Content.Client.Markers;
 using Content.Client.Sandbox;

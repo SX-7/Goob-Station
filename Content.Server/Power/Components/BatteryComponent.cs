@@ -30,7 +30,7 @@ namespace Content.Server.Power.Components
         /// The price per one joule. Default is 1 credit for 10kJ.
         /// </summary>
         [DataField]
-        public float PricePerJoule = 0.0003f;
+        public float PricePerJoule = 0.0003f; // Goobstation - more credits from power
     }
 
     /// <summary>

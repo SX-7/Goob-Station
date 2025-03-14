@@ -1,4 +1,3 @@
-using Content.Client._Goobstation.Wizard.Systems;
 using Content.Client.Movement.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Ghost;
@@ -6,6 +5,7 @@ using Robust.Client.Console;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Shared.Player;
+using Content.Client._Goobstation.Wizard.Systems;
 
 namespace Content.Client.Ghost
 {

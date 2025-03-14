@@ -2,6 +2,7 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Roles.Jobs;
+using Robust.Shared.GameObjects;
 using System.Diagnostics.CodeAnalysis;
 using Content.Server._Goobstation.Wizard.Components;
 using Content.Server.Mind;

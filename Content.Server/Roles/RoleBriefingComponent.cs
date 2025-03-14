@@ -1,4 +1,6 @@
-﻿namespace Content.Server.Roles;
+﻿using Content.Shared.Roles;
+
+namespace Content.Server.Roles;
 
 /// <summary>
 /// Adds a briefing to the character info menu, does nothing else.

@@ -2,6 +2,7 @@ using Content.Server.Objectives.Components;
 using Content.Server.GameTicking.Rules;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
+using Content.Shared.Roles.Jobs;
 using Robust.Shared.Random;
 using System.Linq;
 using Content.Server._Goobstation.Objectives.Components;

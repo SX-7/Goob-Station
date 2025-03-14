@@ -3,6 +3,7 @@ using Content.Shared.Sprite;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Client.State;
+using Robust.Shared.Physics;
 
 namespace Content.Client.Sprite;
 

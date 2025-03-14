@@ -25,7 +25,7 @@
 				</BoxContainer>
 			</ScrollContainer>
 		</PanelContainer>
-
+		
 		<!-- Third approve button panel -->
 		<PanelContainer Margin="10">
 			<Button Name="ApproveButton"

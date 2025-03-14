@@ -1,5 +1,6 @@
 using Content.Server.DeviceNetwork.Components;
 using Robust.Shared.Random;
+using static Content.Server.DeviceNetwork.Components.DeviceNetworkComponent;
 
 namespace Content.Server.DeviceNetwork;
 

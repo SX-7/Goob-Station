@@ -3,14 +3,14 @@ using Content.Shared.Light.Components;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Shared.Animations;
-using Robust.Shared.Random;
+using Robust.Shared.Random; // Goob edit
 
 namespace Content.Client.Light.EntitySystems;
 
 public sealed class RotatingLightSystem : SharedRotatingLightSystem
 {
     [Dependency] private readonly AnimationPlayerSystem _animations = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _random = default!; // Goob edit
 
     private Animation GetAnimation(float speed, int dir) // Goob edit
     {
@@ -52,11 +52,13 @@ public sealed class RotatingLightSystem : SharedRotatingLightSystem
 
     private void OnStartup(EntityUid uid, RotatingLightComponent comp, ComponentStartup args)
     {
-        if (comp.MaxSpeed != null && comp.MaxSpeed > comp.Speed) // Goobstation
+        // Goobstation start
+        if (comp.MaxSpeed != null && comp.MaxSpeed > comp.Speed)
             comp.Speed = _random.NextFloat(comp.Speed, comp.MaxSpeed.Value);
 
         if (comp.RandomizeDirection)
             comp.Direction = _random.Pick(new List<int> { -1, 1 });
+        // Goobstation end
 
         var player = EnsureComp<AnimationPlayerComponent>(uid);
         PlayAnimation(uid, comp, player);

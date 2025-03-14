@@ -1,4 +1,5 @@
 using Content.Shared.SurveillanceCamera;
+using Robust.Client.GameObjects;
 
 namespace Content.Client.SurveillanceCamera.UI;
 

@@ -1,3 +1,4 @@
+using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 
 namespace Content.Client.Effects;

@@ -8,6 +8,7 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.Voting;
+using Robust.Server;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Utility;

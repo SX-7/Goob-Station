@@ -1,6 +1,7 @@
 using Content.Server.DeviceLinking.Events;
 using Content.Server.DeviceLinking.Systems;
 using Content.Server.Materials;
+using Content.Server.Power.Components;
 using Content.Shared.Conveyor;
 using Content.Shared.Destructible;
 using Content.Shared.Maps;

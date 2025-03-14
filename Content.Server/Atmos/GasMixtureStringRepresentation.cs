@@ -1,4 +1,6 @@
-﻿namespace Content.Server.Atmos;
+﻿using System.Linq;
+
+namespace Content.Server.Atmos;
 
 public readonly record struct GasMixtureStringRepresentation(float TotalMoles, float Temperature, float Pressure, Dictionary<string, float> MolesPerGas) : IFormattable
 {

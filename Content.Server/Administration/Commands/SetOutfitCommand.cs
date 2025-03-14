@@ -166,7 +166,7 @@ namespace Content.Server.Administration.Commands
                 stationSpawning.EquipRoleLoadout(target, roleLoadout, jobProto);
             }
 
-            if (entityManager.HasComponent<EncryptionKeyHolderComponent>(target))
+            if (entityManager.HasComponent<EncryptionKeyHolderComponent>(target)) // Goob - IPCs
             {
                 var encryption = entityManager.System<InternalEncryptionKeySpawner>();
                 encryption.TryInsertEncryptionKey(target, startingGear);

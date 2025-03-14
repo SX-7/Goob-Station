@@ -3,6 +3,7 @@ using Content.Shared.Access.Systems;
 using Content.Shared.APC;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Robust.Shared.Player;
 
 namespace Content.Client.Power.APC
 {

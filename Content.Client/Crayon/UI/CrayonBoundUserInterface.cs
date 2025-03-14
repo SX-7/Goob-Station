@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Content.Shared.Crayon;
 using Content.Shared.Decals;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 

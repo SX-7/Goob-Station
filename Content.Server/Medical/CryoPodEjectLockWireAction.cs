@@ -1,3 +1,4 @@
+using Content.Server.Medical.Components;
 using Content.Server.Wires;
 using Content.Shared.Medical.Cryogenics;
 using Content.Shared.Wires;

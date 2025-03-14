@@ -20,6 +20,10 @@ using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
+using Content.Shared.Station.Components;
+using Robust.Shared.EntitySerialization;
+using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.IoC;
 using Robust.Shared.Utility;
 using YamlDotNet.RepresentationModel;
 
@@ -95,7 +99,6 @@ namespace Content.IntegrationTests.Tests
             "Origin", // Goobstation - Readds Origin
             "Train",
             "Oasis",
-            //"Cog", FUCK COG
             "FlandHighPop", // Goobstation - add highpop maps
             "OriginHighPop",
             "OasisHighPop",
@@ -183,11 +186,9 @@ namespace Content.IntegrationTests.Tests
                         }
                         catch (Exception ex)
                         {
-                            throw new Exception(
-                                $"Failed to load shuttle {path}, was it saved as a map instead of a grid?",
+                            throw new Exception($"Failed to load shuttle {path}, was it saved as a map instead of a grid?",
                                 ex);
                         }
-
                         mapSystem.DeleteMap(mapId);
                     }
                 });
@@ -210,8 +211,7 @@ namespace Content.IntegrationTests.Tests
             var mapFolder = new ResPath("/Maps");
             var maps = resourceManager
                 .ContentFindFiles(mapFolder)
-                .Where(filePath =>
-                    filePath.Extension == "yml" && !filePath.Filename.StartsWith(".", StringComparison.Ordinal))
+                .Where(filePath => filePath.Extension == "yml" && !filePath.Filename.StartsWith(".", StringComparison.Ordinal))
                 .ToArray();
 
             var v7Maps = new List<ResPath>();
@@ -239,6 +239,10 @@ namespace Content.IntegrationTests.Tests
                 var meta = root["meta"];
                 var version = meta["format"].AsInt();
 
+                // TODO MAP TESTS
+                // Move this to some separate test?
+                CheckDoNotMap(map, root, protoManager);
+
                 if (version >= 7)
                 {
                     v7Maps.Add(map);
@@ -247,23 +251,6 @@ namespace Content.IntegrationTests.Tests
 
                 var postMapInit = meta["postmapinit"].AsBool();
                 Assert.That(postMapInit, Is.False, $"Map {map.Filename} was saved postmapinit");
-
-                // testing that maps have nothing with the DoNotMap entity category
-                // I do it here because it's basically copy-paste code for the most part
-                var yamlEntities = root["entities"];
-                if (!protoManager.TryIndex<EntityCategoryPrototype>("DoNotMap", out var dnmCategory))
-                    return;
-                foreach (var yamlEntity in (YamlSequenceNode) yamlEntities)
-                {
-                    var protoId = yamlEntity["proto"].AsString();
-                    protoManager.TryIndex(protoId, out var proto, false);
-                    if (proto is null || proto.EditorSuffix is null)
-                        continue;
-                    if (proto.Categories.Contains(dnmCategory) && !DoNotMapWhitelist.Contains(map.ToString()))
-                    {
-                        Assert.Fail($"\nMap {map} has the DO NOT MAP category in prototype {proto.Name}");
-                    }
-                }
             }
 
             var deps = server.ResolveDependency<IEntitySystemManager>().DependencyCollection;
@@ -290,6 +277,34 @@ namespace Content.IntegrationTests.Tests
             Assert.That(IsPreInit(path, loader, deps), Is.False);
 
             await pair.CleanReturnAsync();
+        }
+
+        /// <summary>
+        /// Check that maps do not have any entities that belong to the DoNotMap entity category
+        /// </summary>
+        private void CheckDoNotMap(ResPath map, YamlNode node, IPrototypeManager protoManager)
+        {
+            if (DoNotMapWhitelist.Contains(map.ToString()))
+                return;
+
+            var yamlEntities = node["entities"];
+            if (!protoManager.TryIndex<EntityCategoryPrototype>("DoNotMap", out var dnmCategory))
+                return;
+
+            Assert.Multiple(() =>
+            {
+                foreach (var yamlEntity in (YamlSequenceNode)yamlEntities)
+                {
+                    var protoId = yamlEntity["proto"].AsString();
+
+                    // This doesn't properly handle prototype migrations, but thats not a significant issue.
+                    if (!protoManager.TryIndex(protoId, out var proto, false))
+                        continue;
+
+                    Assert.That(!proto.Categories.Contains(dnmCategory),
+                        $"\nMap {map} contains entities in the DO NOT MAP category ({proto.Name})");
+                }
+            });
         }
 
         private bool IsPreInit(ResPath map, MapLoaderSystem loader, IDependencyCollection deps)
@@ -341,7 +356,7 @@ namespace Content.IntegrationTests.Tests
                 MapId mapId;
                 try
                 {
-                    var opts = DeserializationOptions.Default with { InitializeMaps = true };
+                    var opts = DeserializationOptions.Default with {InitializeMaps = true};
                     ticker.LoadGameMap(protoManager.Index<GameMapPrototype>(mapProto), out mapId, opts);
                 }
                 catch (Exception ex)
@@ -421,9 +436,7 @@ namespace Content.IntegrationTests.Tests
 
                     jobs.ExceptWith(spawnPoints);
 
-                    Assert.That(jobs,
-                        Is.Empty,
-                        $"There is no spawnpoints for {string.Join(", ", jobs)} on {mapProto}.");
+                    Assert.That(jobs, Is.Empty, $"There is no spawnpoints for {string.Join(", ", jobs)} on {mapProto}.");
                 }
 
                 try
@@ -441,6 +454,7 @@ namespace Content.IntegrationTests.Tests
         }
 
 
+
         private static int GetCountLateSpawn<T>(List<EntityUid> gridUids, IEntityManager entManager)
             where T : ISpawnPoint, IComponent
         {
@@ -452,8 +466,8 @@ namespace Content.IntegrationTests.Tests
                 var spawner = (ISpawnPoint) comp;
 
                 if (spawner.SpawnType is not SpawnPointType.LateJoin
-                    || xform.GridUid == null
-                    || !gridUids.Contains(xform.GridUid.Value))
+                || xform.GridUid == null
+                || !gridUids.Contains(xform.GridUid.Value))
                 {
                     continue;
                 }
@@ -501,8 +515,7 @@ namespace Content.IntegrationTests.Tests
             var mapFolder = new ResPath("/Maps");
             var maps = resourceManager
                 .ContentFindFiles(mapFolder)
-                .Where(filePath =>
-                    filePath.Extension == "yml" && !filePath.Filename.StartsWith(".", StringComparison.Ordinal))
+                .Where(filePath => filePath.Extension == "yml" && !filePath.Filename.StartsWith(".", StringComparison.Ordinal))
                 .ToArray();
 
             var mapPaths = new List<ResPath>();
@@ -516,7 +529,6 @@ namespace Content.IntegrationTests.Tests
                 {
                     continue;
                 }
-
                 mapPaths.Add(rootedPath);
             }
 

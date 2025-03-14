@@ -1,4 +1,5 @@
 using Content.Server.Solar.Components;
+using Content.Server.UserInterface;
 using Content.Shared.Solar;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;

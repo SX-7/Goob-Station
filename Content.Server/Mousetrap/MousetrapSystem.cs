@@ -3,9 +3,13 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.Popups;
 using Content.Shared.Abilities;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Inventory;
 using Content.Shared.Mousetrap;
+using Content.Shared.StepTrigger;
 using Content.Shared.StepTrigger.Systems;
+using Robust.Server.GameObjects;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Player;
 
 namespace Content.Server.Mousetrap;
 

@@ -1,8 +1,8 @@
-using Content.Shared._DV.Salvage; // DeltaV
 using Content.Shared.Lathe;
 using Content.Shared.Research.Components;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Content.Shared._DV.Salvage; // DeltaV
 
 namespace Content.Client.Lathe.UI
 {

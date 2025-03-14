@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Content.Server.Administration.Logs.Converters;
+using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 

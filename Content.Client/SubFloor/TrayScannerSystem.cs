@@ -4,6 +4,7 @@ using Content.Shared.SubFloor;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
+using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
 namespace Content.Client.SubFloor;

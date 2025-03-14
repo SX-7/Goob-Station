@@ -1,3 +1,4 @@
+using Content.Server.DeviceNetwork;
 using Content.Shared.DeviceNetwork;
 
 namespace Content.Server.DeviceLinking.Events;

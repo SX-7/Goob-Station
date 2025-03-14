@@ -5,6 +5,7 @@ using Content.Server.PowerCell;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Ninja.Components;
 using Content.Shared.Ninja.Systems;
+using Content.Shared.Popups;
 using Content.Shared.PowerCell.Components;
 using Robust.Shared.Containers;
 

@@ -1,4 +1,5 @@
-﻿using Robust.Shared.Random;
+﻿using Robust.Server.GameObjects;
+using Robust.Shared.Random;
 
 namespace Content.Server.RandomAppearance;
 

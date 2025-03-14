@@ -6,6 +6,7 @@ using Content.Shared.Inventory.Events;
 using Content.Shared.Radiation.Components;
 using Content.Shared.Radiation.Systems;
 using Robust.Server.Audio;
+using Robust.Server.GameObjects;
 using Robust.Server.Player;
 
 namespace Content.Server.Radiation.Systems;

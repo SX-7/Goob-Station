@@ -1,6 +1,5 @@
 using System.Numerics;
 using Content.Client.Hands.Systems;
-using Content.Shared._Goobstation.Weapons.AmmoSelector;
 using Content.Shared.CCVar;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -11,6 +10,7 @@ using Robust.Shared.Enums;
 using Robust.Shared.Graphics;
 using Robust.Shared.Map;
 using Direction = Robust.Shared.Maths.Direction;
+using Content.Shared._Goobstation.Weapons.AmmoSelector; // Goobstation
 
 namespace Content.Client.Hands
 {

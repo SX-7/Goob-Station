@@ -1,4 +1,6 @@
 using Robust.Client.ResourceManagement;
+using Robust.Shared.ContentPack;
+using Robust.Shared.IoC;
 
 namespace Content.Client.IoC
 {

@@ -5,6 +5,7 @@ using Content.Shared.Database;
 using Content.Shared.Eui;
 using System.Linq;
 using System.Threading.Tasks;
+using Content.Server.Database;
 using Robust.Shared.Network;
 using static Content.Shared.Administration.Notes.AdminNoteEuiMsg;
 

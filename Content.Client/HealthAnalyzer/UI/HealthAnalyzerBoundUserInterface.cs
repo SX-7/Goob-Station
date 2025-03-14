@@ -1,7 +1,7 @@
 ﻿using Content.Shared.MedicalScanner;
-using Content.Shared._Shitmed.Targeting; // Shitmed Change
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Content.Shared._Shitmed.Targeting; // Shitmed Change
 
 namespace Content.Client.HealthAnalyzer.UI
 {
@@ -23,7 +23,6 @@ namespace Content.Client.HealthAnalyzer.UI
             _window.OnBodyPartSelected += SendBodyPartMessage; // Shitmed Change
             _window.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
         }
-
 
         protected override void ReceiveMessage(BoundUserInterfaceMessage message)
         {

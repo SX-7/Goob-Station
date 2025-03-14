@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Numerics;
 using Content.Client.Shuttles.Systems;
 using Content.Shared.Shuttles.Components;

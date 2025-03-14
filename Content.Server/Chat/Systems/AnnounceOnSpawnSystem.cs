@@ -1,3 +1,5 @@
+using Content.Server.Chat;
+
 namespace Content.Server.Chat.Systems;
 
 public sealed class AnnounceOnSpawnSystem : EntitySystem

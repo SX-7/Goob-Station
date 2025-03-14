@@ -2,6 +2,7 @@ using Content.Server.Antag.Components;
 using Content.Server.Objectives;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
+using Content.Shared.Objectives.Systems;
 using Robust.Shared.Random;
 
 namespace Content.Server.Antag;

@@ -26,8 +26,9 @@ public sealed partial class DefaultGameScreen : InGameScreen
 
         Chat.OnResized += ChatOnResized;
         Chat.OnChatResizeFinish += ChatOnResizeFinish;
+
         MainViewport.OnResized += ResizeActionContainer;
-        MainViewport.OnResized += ResizeAlertsContainer;
+        MainViewport.OnResized += ResizeAlertsContainer; // Shitmed Change
         Inventory.OnResized += ResizeActionContainer;
     }
 
@@ -37,7 +38,7 @@ public sealed partial class DefaultGameScreen : InGameScreen
         Actions.ActionsContainer.MaxGridHeight = MainViewport.Size.Y - indent;
     }
 
-    private void ResizeAlertsContainer()
+    private void ResizeAlertsContainer() // Shitmed Change
     {
         float indent = Chat.Size.Y + Targeting.Size.Y + 120;
         Alerts.AlertContainer.MaxGridHeight = Math.Max(MainViewport.Size.Y - indent, 1);

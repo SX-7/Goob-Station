@@ -1,4 +1,3 @@
-using Content.Client._RMC14.LinkAccount;
 using Content.Client.Audio;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
@@ -14,7 +13,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
-using Content.Client._Goobstation.ServerCurrency;
+using Content.Client._RMC14.LinkAccount; // RMC14
+using Content.Client._Goobstation.ServerCurrency; // Goob
 
 namespace Content.Client.Lobby
 {
@@ -51,7 +51,7 @@ namespace Content.Client.Lobby
             _gameTicker = _entityManager.System<ClientGameTicker>();
             _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
-            _sawmill = Logger.GetSawmill("lobby");
+            _sawmill = Logger.GetSawmill("lobby"); // Goob edit
 
             chatController.SetMainChat(true);
 
@@ -71,7 +71,7 @@ namespace Content.Client.Lobby
             UpdateLobbyUi();
 
             Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
-            Lobby.CharacterPreview.PatronPerks.OnPressed += OnPatronPerksPressed;
+            Lobby.CharacterPreview.PatronPerks.OnPressed += OnPatronPerksPressed; // RMC14
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
 
@@ -95,7 +95,7 @@ namespace Content.Client.Lobby
             _voteManager.ClearPopupContainer();
 
             Lobby!.CharacterPreview.CharacterSetupButton.OnPressed -= OnSetupPressed;
-            Lobby.CharacterPreview.PatronPerks.OnPressed -= OnPatronPerksPressed;
+            Lobby.CharacterPreview.PatronPerks.OnPressed -= OnPatronPerksPressed; // RMC14
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
 
@@ -114,7 +114,7 @@ namespace Content.Client.Lobby
             Lobby?.SwitchState(LobbyGui.LobbyGuiState.CharacterSetup);
         }
 
-        private void OnPatronPerksPressed(BaseButton.ButtonEventArgs obj)
+        private void OnPatronPerksPressed(BaseButton.ButtonEventArgs obj) // RMC14
         {
             _userInterfaceManager.GetUIController<LinkAccountUIController>().TogglePatronPerksWindow();
         }
@@ -190,7 +190,7 @@ namespace Content.Client.Lobby
 
         private void UpdateLobbyUi()
         {
-            Lobby!.CharacterPreview.PatronPerks.Visible = _linkAccount.CanViewPatronPerks();
+            Lobby!.CharacterPreview.PatronPerks.Visible = _linkAccount.CanViewPatronPerks(); // RMC14
 
             if (_gameTicker.IsGameStarted)
             {
