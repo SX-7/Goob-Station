@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Robust.Shared.Map;
 
 namespace Content.Shared.Interaction
 {

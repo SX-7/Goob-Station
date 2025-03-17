@@ -1,3 +1,5 @@
+using Content.Shared.Paper;
+
 namespace Content.Shared.Paper;
 
 /// <summary>

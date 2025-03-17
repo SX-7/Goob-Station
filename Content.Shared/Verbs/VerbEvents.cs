@@ -1,6 +1,7 @@
 using Content.Shared.ActionBlocker;
 using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
+using Robust.Shared.Containers;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 

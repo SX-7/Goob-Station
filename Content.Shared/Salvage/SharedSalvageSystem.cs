@@ -3,11 +3,15 @@ using Content.Shared.CCVar;
 using Content.Shared.Dataset;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.Loot;
+using Content.Shared.Random;
+using Content.Shared.Random.Helpers;
 using Content.Shared.Salvage.Expeditions;
 using Content.Shared.Salvage.Expeditions.Modifiers;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Salvage;
 

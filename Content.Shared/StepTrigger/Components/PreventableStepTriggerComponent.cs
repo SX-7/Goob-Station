@@ -1,3 +1,4 @@
+using Content.Shared.Inventory;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared.StepTrigger.Components;

@@ -88,8 +88,6 @@ public class RCDSystem : EntitySystem
         QueueDel(uid);
     }
 
-
-
     private void OnRCDSystemMessage(EntityUid uid, RCDComponent component, RCDSystemMessage args)
     {
         // Exit if the RCD doesn't actually know the supplied prototype

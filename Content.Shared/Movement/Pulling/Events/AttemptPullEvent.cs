@@ -1,4 +1,6 @@
-﻿namespace Content.Shared.Movement.Pulling.Events;
+﻿using Robust.Shared.Physics.Components;
+
+namespace Content.Shared.Movement.Pulling.Events;
 
 /// <summary>
 /// Raised directed on puller and pullable to determine if it can be pulled.

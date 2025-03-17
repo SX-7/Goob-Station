@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using Microsoft.VisualBasic.CompilerServices;
+
 namespace Content.Shared.Humanoid;
 
 public static class SkinColor

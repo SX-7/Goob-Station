@@ -1,3 +1,5 @@
+using Content.Shared.Movement.Components;
+
 namespace Content.Shared.Movement.Events;
 
 /// <summary>

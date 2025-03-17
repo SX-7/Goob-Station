@@ -149,6 +149,7 @@ public sealed class SwapTeleporterSystem : EntitySystem
         {
             return;
         }
+
         var teleEnt = GetTeleportingEntity((uid, xform));
         var otherTeleEnt = GetTeleportingEntity((linkedEnt, Transform(linkedEnt)));
 

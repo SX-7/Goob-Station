@@ -1,3 +1,5 @@
+using Robust.Shared.Serialization.Manager;
+
 namespace Content.Shared.Traits.Assorted;
 
 /// <summary>

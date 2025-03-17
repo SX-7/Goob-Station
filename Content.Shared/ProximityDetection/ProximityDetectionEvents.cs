@@ -1,5 +1,6 @@
 ﻿using Content.Shared.FixedPoint;
 using Content.Shared.ProximityDetection.Components;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.ProximityDetection;
 

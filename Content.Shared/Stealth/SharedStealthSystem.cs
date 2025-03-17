@@ -1,5 +1,6 @@
 using Content.Shared.Examine;
 using Content.Shared.Mobs;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Stealth.Components;
 using Robust.Shared.Physics.Components; // Goobstation
 using Robust.Shared.GameStates;
